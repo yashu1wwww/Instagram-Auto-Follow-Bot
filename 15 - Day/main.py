@@ -35,6 +35,7 @@ penny = 0.01
 nickle = 0.05
 dime = 0.1
 quarter = 0.25
+machine_status = True
 
 
 def management(menu, total):
@@ -83,15 +84,20 @@ def coffee_management(menu):
     return total
 
 
-while True:
+while machine_status:
     user = input("What would you like? (espresso/latte/cappuccino): ")
 
     if user == "report":
         print(f"Water: {resources['water']}ml\nMilk: {resources['milk']}ml\nCoffee: {resources['coffee']}g\nMoney: ${money_in_machine}")
-
+    elif user == "off":
+        machine_status = False
     elif user == "espresso":
         coffee_management(MENU)
     elif user == "latte":
         coffee_management(MENU)
     elif user == "cappuccino":
         coffee_management(MENU)
+
+    #   THIS IS ALSO WORKING FINE
+    # else:
+    #     coffee_management(MENU)
