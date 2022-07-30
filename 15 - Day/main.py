@@ -30,56 +30,53 @@ resources = {
     "coffee": 100,
 }
 
-
-#######################################################################
-#
-#######################################################################
-
-#   Variables => money, money types
 money_in_machine = 0
-
 penny = 0.01
 nickle = 0.05
 dime = 0.1
 quarter = 0.25
 
 
-def user_money(menu):
+def management(menu, total):
     global money_in_machine
+    # user money change return and add money in machine
+    change = round(total - menu[user]["cost"], 2)
+    money_in_machine += menu[user]["cost"]
+
+    resources["water"] -= menu[user]["ingredients"]["water"]
+    resources["coffee"] -= menu[user]["ingredients"]["coffee"]
+    if "milk" in menu[user]["ingredients"]:
+        resources["milk"] -= menu[user]["ingredients"]["milk"]
+
+    print(f"Here is ${change} in change")
+    print(f"Here is your {user} ☕. Enjoy")
+
+
+def coffee_management(menu):
     print("Please insert coins.")
     q = int(input("how many quarters?: "))
     d = int(input("how many dimes?: "))
     n = int(input("how many nickles?: "))
     p = int(input("how many pennies?: "))
-
     total = (q * quarter) + (d * dime) + (n * nickle) + (p * penny)
 
+    #   compare price
     if total >= menu[user]["cost"]:
-        # check resource
+        #   check resource
         if resources["water"] >= menu[user]["ingredients"]["water"]:
             if resources["coffee"] >= menu[user]["ingredients"]["coffee"]:
+                #   check milk in ingredients
                 if "milk" in menu[user]["ingredients"]:
                     if resources["milk"] >= menu[user]["ingredients"]["milk"]:
-
+                        management(menu, total)
                     else:
                         print("Sorry there is not enough coffee.")
+                else:
+                    management(menu, total)
             else:
                 print("Sorry there is not enough coffee.")
         else:
             print("Sorry there is not enough water.")
-
-        # user money change return and add money in machine
-        change = round(total - menu[user]["cost"], 2)
-        money_in_machine += menu[user]["cost"]
-
-        # resource management
-        resources["water"] -= menu[user]["ingredients"]["water"]
-        resources["coffee"] -= menu[user]["ingredients"]["coffee"]
-        if "milk" in menu[user]["ingredients"]:
-            resources["milk"] -= menu[user]["ingredients"]["milk"]
-
-        print(f"Here is ${change} in change")
-        print(f"Here is your {user} ☕. Enjoy")
     else:
         print("Sorry that's not enough money. Money refunded.")
 
@@ -89,75 +86,12 @@ def user_money(menu):
 while True:
     user = input("What would you like? (espresso/latte/cappuccino): ")
 
-    #   Display machine resources and money
     if user == "report":
         print(f"Water: {resources['water']}ml\nMilk: {resources['milk']}ml\nCoffee: {resources['coffee']}g\nMoney: ${money_in_machine}")
 
-    #   Espresso Coffee
     elif user == "espresso":
-        user_money(MENU)
-    #   latte
+        coffee_management(MENU)
     elif user == "latte":
-        user_money(MENU)
-    #   cappuccino
+        coffee_management(MENU)
     elif user == "cappuccino":
-        user_money(MENU)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+        coffee_management(MENU)
