@@ -11,6 +11,7 @@ screen.tracer(0)
 
 player = Player()
 carmanager = CarManager()
+scoreboard = Scoreboard()
 
 
 # LISTEN
@@ -29,6 +30,7 @@ while game_is_on:
     for car in carmanager.all_cars:
         if car.distance(player) < 20:
             game_is_on = False
+            scoreboard.game_over()
 
     # detect reached goal
     # if player.ycor() > 300:
@@ -36,6 +38,7 @@ while game_is_on:
     if player.is_at_finish_line():
         player.got_to_start()
         carmanager.level_up()
+        scoreboard.increase_level()
 
 
 
