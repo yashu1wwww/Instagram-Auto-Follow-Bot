@@ -1,29 +1,60 @@
-class Person:
+from turtle import Turtle
+
+COORDINATES = [(0, 0), (-10, 0), (-20, 0)]
+MOVE_DISTANCE = 12
+UP = 90
+DOWN = 270
+LEFT = 180
+RIGHT = 0
+
+
+class Snake:
+
     def __init__(self):
-        self.firstname = "Arunesh"
-        self.lastname = "kumar"
+        self.parts = []
+        self.make_snake()
+        self.head = self.parts[0]
+        self.head_mod()
 
-    def fullname(self):
-        print(f"{self.firstname} {self.lastname}")
+    def make_snake(self):
+        for pos in COORDINATES:
+            self.add_part(pos)
 
+    def add_part(self, pos):
+        part = Turtle("square")
+        part.penup()
+        part.color("orange")
+        part.shapesize(0.5, 0.5)
+        part.goto(pos)
+        self.parts.append(part)
 
-class Student(Person):
-    def __init__(self):
-        super().__init__()
+    def extend(self):
+        self.add_part(self.parts[-1].position())
 
-    def details(self):
-        print("He is good person")
+    def head_mod(self):
+        self.head.color("cyan")
+        self.head.shape("circle")
+        self.head.shapesize(0.6, 0.8)
 
-    def fullname(self):
-        super().fullname()
-        print(f"This is new Method calling -> {self.firstname} {self.lastname}")
+    def move(self):
+        for i in range(len(self.parts) - 1, 0, -1):
+            po_x = self.parts[i - 1].xcor()
+            po_y = self.parts[i - 1].ycor()
+            self.parts[i].goto(po_x, po_y)
+        self.head.forward(MOVE_DISTANCE)
 
+    def up(self):
+        if self.head.heading() != DOWN:
+            self.head.seth(UP)
 
-student = Student()
-student.details()
+    def down(self):
+        if self.head.heading() != UP:
+            self.head.seth(DOWN)
 
-print()
-student.fullname()
-print()
+    def left(self):
+        if self.head.heading() != RIGHT:
+            self.head.seth(LEFT)
 
-print(student.firstname)
+    def right(self):
+        if self.head.heading() != LEFT:
+            self.head.seth(RIGHT)
