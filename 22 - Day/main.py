@@ -22,10 +22,10 @@ ball = Ball()
 
 #  SCREEN LISTEN
 screen.listen()
-screen.onkey(fun=r_paddle.go_up, key="Up")
-screen.onkey(fun=r_paddle.go_down, key="Down")
-screen.onkey(fun=l_paddle.go_up, key="w")
-screen.onkey(fun=l_paddle.go_down, key="s")
+screen.onkeypress(fun=r_paddle.go_up, key="Up")
+screen.onkeypress(fun=r_paddle.go_down, key="Down")
+screen.onkeypress(fun=l_paddle.go_up, key="w")
+screen.onkeypress(fun=l_paddle.go_down, key="s")
 
 
 # GAME CONTINUE
