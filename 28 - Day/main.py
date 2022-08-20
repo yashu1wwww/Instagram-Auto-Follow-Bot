@@ -64,6 +64,14 @@ def count_down(count):
         window.after(1000, count_down, count - 1)
     else:
         start_timer()
+        marks = ""
+
+        work_sessions = math.floor(reps/2)
+
+        for _ in range(work_sessions):
+            marks += "✔"
+
+        check_label.config(text=marks)
 
 
 # ---------------------------- UI SETUP ------------------------------- #
@@ -83,7 +91,7 @@ canvas.grid(column=1, row=1)
 timer_label = Label(text="Timer", fg=GREEN, font=(FONT_NAME, 50, "bold"), bg=YELLOW)
 timer_label.grid(column=1, row=0)
 
-check_label = Label(text="✔", fg=GREEN, font=(FONT_NAME, 15, "normal"), bg=YELLOW)
+check_label = Label(fg=GREEN, font=(FONT_NAME, 15, "normal"), bg=YELLOW)
 check_label.grid(column=1, row=3)
 
 #   buttons
