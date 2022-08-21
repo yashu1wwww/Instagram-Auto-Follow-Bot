@@ -5,6 +5,23 @@ import pyperclip
 import json
 
 
+# ---------------------------- SEARCH PASSWORD ------------------------------- #
+def find_password():
+    website = website_entry.get()
+    try:
+        with open("data.json", "r") as file_data:
+            data = json.load(file_data)
+    except FileNotFoundError:
+        messagebox.showerror(title="Error", message="No Data File Found")
+    else:
+        if website in data:
+            email = data[website]["email"]
+            password = data[website]["password"]
+            messagebox.showinfo(title=website, message=f"Email : {email}\nPassword : {password}")
+        else:
+            messagebox.showerror(title="Error", message=f"No Details Exists for {website}")
+
+
 # ---------------------------- PASSWORD GENERATOR ------------------------------- #
 #   Password Generator Project
 def generate_password():
@@ -95,9 +112,9 @@ password_label = Label(text="Password:")
 password_label.grid(row=3, column=0, sticky="E")
 
 
-website_entry = Entry(width=35)
+website_entry = Entry(width=21)
 website_entry.focus()
-website_entry.grid(row=1, column=1, columnspan=2, sticky="EW")
+website_entry.grid(row=1, column=1, sticky="EW")
 
 email_entry = Entry(width=35)
 email_entry.insert(0, "example@gmail.com")
@@ -106,6 +123,9 @@ email_entry.grid(row=2, column=1, columnspan=2, sticky="EW")
 password_entry = Entry(width=21)
 password_entry.grid(row=3, column=1, sticky="EW")
 
+
+search_btn = Button(text="Search", command=find_password)
+search_btn.grid(row=1, column=2, sticky="EW")
 
 generate_password_btn = Button(text="Generate Password", command=generate_password)
 generate_password_btn.grid(row=3, column=2)
