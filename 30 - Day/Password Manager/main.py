@@ -55,33 +55,25 @@ def save():
         return messagebox.showinfo(title="Oops", message="Please don't leave any field empty!")
     else:
         #   UPDATE WITH NEW DATA
-        with open("data.json", mode="r") as data:
-            # reading json data
-            file_data = json.load(data)
+        try:
+            with open("data.json", mode="r") as file_data:
+                # reading json data
+                data = json.load(file_data)
+        except FileNotFoundError:
+            with open("data.json", mode="w") as file_data:
+                json.dump(new_data, file_data, indent=4)
+        except json.decoder.JSONDecodeError:
+            with open("data.json", mode="w") as file_data:
+                json.dump(new_data, file_data, indent=4)
+        else:
             # updating json data
-            file_data.update(new_data)
-
-        with open("data.json", mode="w") as data:
-            #   writing json file data with old and new data
-            json.dump(file_data, data, indent=4)
-
+            data.update(new_data)
+            with open("data.json", mode="w") as file_data:
+                #   writing json file data with old and new data
+                json.dump(data, file_data, indent=4)
+        finally:
             website_entry.delete(0, END)
             password_entry.delete(0, END)
-
-        # #   read json data
-        # with open("data.json", mode="r") as data:
-        #     js = json.load(data)
-        #     print(js)
-        #     website_entry.delete(0, END)
-        #     password_entry.delete(0, END)
-
-        # #   write json data
-        # with open("data.json", mode="a") as data:
-        #     json.dump(new_data, data, indent=4)
-        #
-        #     #   clear input data
-        #     website_entry.delete(0, END)
-        #     password_entry.delete(0, END)
 
 
 # ---------------------------- UI SETUP ------------------------------- #
