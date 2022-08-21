@@ -59,10 +59,7 @@ def save():
             with open("data.json", mode="r") as file_data:
                 # reading json data
                 data = json.load(file_data)
-        except FileNotFoundError:
-            with open("data.json", mode="w") as file_data:
-                json.dump(new_data, file_data, indent=4)
-        except json.decoder.JSONDecodeError:
+        except (FileNotFoundError, json.JSONDecodeError):
             with open("data.json", mode="w") as file_data:
                 json.dump(new_data, file_data, indent=4)
         else:
