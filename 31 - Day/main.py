@@ -11,9 +11,17 @@ BACKGROUND_COLOR = "#B1DDC6"
 #               READ CSV DATA
 #
 #################################################################################################
-data = pandas.read_csv("data/french_words.csv")
-to_learn = data.to_dict(orient="records")
+
 current_card = {}
+
+
+try:
+    data = pandas.read_csv("data/words_to_learn.csv")
+except FileNotFoundError:
+    data = pandas.read_csv("data/french_words.csv")
+    to_learn = data.to_dict(orient="records")
+else:
+    to_learn = data.to_dict(orient="records")
 
 
 def flip_card():
@@ -34,6 +42,15 @@ def next_card():
     canvas.itemconfig(canvas_image, image=front_image)
 
     flip_timer = window.after(2000, flip_card)
+
+
+def is_known():
+    to_learn.remove(current_card)
+
+    new_df = pandas.DataFrame(to_learn)
+    new_df.to_csv("data/words_to_learn.csv", index=False)
+
+    next_card()
 
 
 #################################################################################################
@@ -63,7 +80,7 @@ wrong_btn = Button(image=wrong_image, highlightthickness=0, bd=0, activebackgrou
 wrong_btn.grid(row=1, column=0)
 
 right_image = PhotoImage(file="images/right.png")
-right_btn = Button(image=right_image, highlightthickness=0, bd=0, activebackground=BACKGROUND_COLOR, command=next_card)
+right_btn = Button(image=right_image, highlightthickness=0, bd=0, activebackground=BACKGROUND_COLOR, command=is_known)
 right_btn.grid(row=1, column=1)
 
 
