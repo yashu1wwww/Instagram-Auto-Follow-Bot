@@ -2,11 +2,24 @@ import random
 import pandas
 
 
-data = pandas.read_csv("data/french_words.csv")
+data = pandas.read_csv("data.csv")
 
-print(data)
+a = data.to_dict(orient="records")
+
+print(a)
+
+b = a[0]
+
+print(b)
+
+a.remove(b)
+a.remove(a[1])
 
 
-a = data["French"].tolist()
+print()
 
-print(random.choice(a))
+print(a)
+
+new_data = pandas.DataFrame(a)
+
+new_data.to_csv("new_csv.csv")

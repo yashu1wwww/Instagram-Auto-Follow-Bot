@@ -59,7 +59,21 @@
             </Attribute>
           </value>
         </entry>
+        <entry key="\31 - Day\data.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
         <entry key="\31 - Day\data\french_words.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
+        <entry key="\31 - Day\new_csv.csv">
           <value>
             <Attribute>
               <option name="separator" value="," />
