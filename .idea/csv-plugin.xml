@@ -59,6 +59,13 @@
             </Attribute>
           </value>
         </entry>
+        <entry key="\31 - Day\data\french_words.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
       </map>
     </option>
   </component>
