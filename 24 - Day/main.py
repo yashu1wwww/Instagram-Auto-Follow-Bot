@@ -28,7 +28,7 @@ with open("a.txt", mode="w") as file:
     file.write("New File Added")
 
 
-# A:\100 Days of Code\24 - Day\main.py
+# A:\100 Days of Code\24 - Day\hello.py
 with open("C:/Users/91800/Desktop/b.txt") as file:
     print(file.read())
 
