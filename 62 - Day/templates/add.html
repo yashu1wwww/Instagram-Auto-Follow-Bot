@@ -2,6 +2,12 @@
 
 {% block title %}Add A New Cafe{% endblock %}
 
+{% block styles %}
+{{super()}}
+<link rel="stylesheet"
+      href="{{url_for('static', filename='css/styles.css')}}">
+{% endblock %}
+
 {% block content %}
 <div class="container">
   <div class="row">
@@ -11,7 +17,7 @@
 
       <!-- This is where your WTForm will go -->
 
-	  <p class="space-above"><a href="#">See all cafes</a></p>
+	  <p class="space-above"><a href="{{ url_for('cafes') }}">See all cafes</a></p>
 
     </div>
   </div>

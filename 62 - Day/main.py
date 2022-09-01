@@ -17,7 +17,7 @@ class CafeForm(FlaskForm):
 # Exercise:
 # add: Location URL, open time, closing time, coffee rating, wifi rating, power outlet rating fields
 # make coffee/wifi/power a select element with choice of 0 to 5.
-#e.g. You could use emojis ☕️/💪/✘/🔌
+# e.g. You could use emojis ☕️/💪/✘/🔌
 # make all fields required except submit
 # use a validator to check that the URL field has a URL entered.
 # ---------------------------------------------------------------------------
@@ -42,11 +42,12 @@ def add_cafe():
 
 @app.route('/cafes')
 def cafes():
-    with open('cafe-data.csv', newline='') as csv_file:
+    with open('cafe-data.csv', newline='', encoding="utf8") as csv_file:
         csv_data = csv.reader(csv_file, delimiter=',')
         list_of_rows = []
         for row in csv_data:
             list_of_rows.append(row)
+    print(list_of_rows)
     return render_template('cafes.html', cafes=list_of_rows)
 
 

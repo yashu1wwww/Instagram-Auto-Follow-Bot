@@ -94,6 +94,13 @@
             </Attribute>
           </value>
         </entry>
+        <entry key="\62 - Day\cafe-data.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
       </map>
     </option>
   </component>
