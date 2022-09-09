@@ -14,6 +14,12 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
 
 
+class MovieForm(FlaskForm):
+    rating = StringField("Your rating out of 10 e.g 7.5")
+    review = StringField("Your review")
+    submit = SubmitField("Done")
+
+
 class Movie(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String(250), unique=True, nullable=False)
@@ -46,6 +52,22 @@ new_movie = Movie(
 def home():
     data = Movie.query.all()
     return render_template("index.html", movies=data)
+
+
+@app.route("/edit", methods=["GET", "POST"])
+def edit():
+    current_id = request.args.get("id")
+    current_movie = Movie.query.get(current_id)
+    form = MovieForm()
+
+    if form.validate_on_submit():
+        current_movie.rating = float(form.rating.data)
+        current_movie.review = form.review.data
+
+        db.session.commit()
+
+        return redirect(url_for("home"))
+    return render_template("edit.html", movie=current_movie, form=form)
 
 
 if __name__ == '__main__':
