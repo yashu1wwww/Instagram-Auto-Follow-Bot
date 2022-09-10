@@ -1,4 +1,6 @@
 {% extends 'bootstrap/base.html' %}
+{% import "bootstrap/wtf.html" as wtf %}
+
 
 {% block styles %}
   {{ super() }}
@@ -12,5 +14,12 @@
 {% block content %}
 <div class="content">
     <h1 class="heading">Add a Movie</h1>
+
+
+    {{ wtf.quick_form(form) }}
+
+
+
+
 </div>
 {% endblock %}
