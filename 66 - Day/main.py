@@ -1,5 +1,7 @@
 from flask import Flask, jsonify, render_template, request
 from flask_sqlalchemy import SQLAlchemy
+from random import choice
+
 
 app = Flask(__name__)
 
@@ -27,9 +29,63 @@ class Cafe(db.Model):
 @app.route("/")
 def home():
     return render_template("index.html")
-    
+
 
 # HTTP GET - Read Record
+
+# GET random cafe
+@app.route("/random")
+def get_random_cafe():
+
+    cafes = Cafe.query.all()
+    cafe = choice(cafes)
+
+    print(cafe)
+    print(cafe.id)
+
+    return jsonify({
+        "cafe": {
+            "can_take_calls": cafe.can_take_calls,
+            "coffee_price": cafe.coffee_price,
+            "has_sockets": cafe.has_sockets,
+            "has_toilet": cafe.has_toilet,
+            "has_wifi": cafe.has_wifi,
+            "id": cafe.id,
+            "img_url": cafe.img_url,
+            "location": cafe.location,
+            "map_url": cafe.map_url,
+            "name": cafe.name,
+            "seats": cafe.seats
+        }
+    })
+
+
+# GET all cafe
+@app.route("/all")
+def get_all_cafe():
+    cafes = Cafe.query.all()
+
+    cafe_list = []
+
+    for cafe in cafes:
+        data = {
+            "id": cafe.id,
+            "can_take_calls": cafe.can_take_calls,
+            "coffee_price": cafe.coffee_price,
+            "has_sockets": cafe.has_sockets,
+            "has_toilet": cafe.has_toilet,
+            "has_wifi": cafe.has_wifi,
+            "img_url": cafe.img_url,
+            "location": cafe.location,
+            "map_url": cafe.map_url,
+            "name": cafe.name,
+            "seats": cafe.seats
+            }
+
+        cafe_list.append(data)
+
+    return jsonify({"cafes": cafe_list})
+
 
 # HTTP POST - Create Record
 
