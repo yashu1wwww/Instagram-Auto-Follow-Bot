@@ -164,6 +164,19 @@ def add_cafe():
 
 
 # HTTP PUT/PATCH - Update Record
+@app.route("/update-price/<int:cafe_id>", methods=["PATCH"])
+def update_price(cafe_id):
+    cafe = Cafe.query.get(cafe_id)
+    price = request.args.get("coffee_price")
+
+    if cafe:
+        cafe.coffee_price = f"£{price}"
+        db.session.add(cafe)
+        db.session.commit()
+        return jsonify({"success": "Successfully update cafe price"})
+    else:
+        return jsonify({"error": {"Not Found": "Sorry a cafe with that id was not found in the database."}})
+
 
 # HTTP DELETE - Delete Record
 
