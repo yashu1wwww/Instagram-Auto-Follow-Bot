@@ -84,7 +84,10 @@ def get_all_cafe():
 
         cafe_list.append(data)
 
-    return jsonify({"cafes": cafe_list})
+    return jsonify({
+        "a length": len(cafe_list),
+        "cafes": cafe_list
+    })
 
 
 #   SEARCH
@@ -124,10 +127,41 @@ def search():
             "Not Found": "Sorry, we don't have a cafe at that location."
         }})
 
-    return jsonify({"cafe": cafe_list})
+    return jsonify({
+        "length": len(cafe_list),
+        "cafe": cafe_list
+    })
 
 
-# HTTP POST - Create Record
+#   HTTP POST - Create Record
+@app.route("/add", methods=["POST"])
+def add_cafe():
+    data = request.json
+    print(data)
+    print(data["name"])
+
+    new_cafe = Cafe(
+        name=data["name"],
+        map_url=data["map_url"],
+        img_url=data["img_url"],
+        location=data["location"],
+        seats=data["seats"],
+        has_toilet=data["has_toilet"],
+        has_wifi=data["has_wifi"],
+        has_sockets=data["has_sockets"],
+        can_take_calls=data["can_take_calls"],
+        coffee_price=data["coffee_price"]
+    )
+
+    db.session.add(new_cafe)
+    db.session.commit()
+
+    return jsonify({
+        "response": {
+            "success": "Successfully add new cafe."
+        }
+    })
+
 
 # HTTP PUT/PATCH - Update Record
 
