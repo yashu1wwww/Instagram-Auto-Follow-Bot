@@ -43,16 +43,22 @@ def register():
 
         password = generate_password_hash(password=request.form["password"], method="pbkdf2:sha256", salt_length=8)
 
-        new_user = User(
-            name=request.form["name"],
-            email=request.form["email"],
-            password=password
-        )
+        if not User.query.filter_by(email=request.form["email"]).first():
+            new_user = User(
+                name=request.form["name"],
+                email=request.form["email"],
+                password=password
+            )
 
-        db.session.add(new_user)
-        db.session.commit()
+            db.session.add(new_user)
+            db.session.commit()
 
-        return redirect(url_for("secrets", name=new_user.name))
+            login_user(new_user)
+
+            return redirect(url_for("secrets", name=new_user.name))
+        else:
+            flash("User already exists, Please select different email address.")
+            return redirect(url_for("register"))
 
     return render_template("register.html")
 
@@ -63,10 +69,16 @@ def login():
     if request.method == "POST":
         user = User.query.filter_by(email=request.form["email"]).first()
 
-        if check_password_hash(pwhash=user.password, password=request.form["password"]):
-            login_user(user)
-
-            return redirect(url_for("secrets"))
+        if user != None:
+            if check_password_hash(pwhash=user.password, password=request.form["password"]):
+                login_user(user)
+                return redirect(url_for("secrets"))
+            else:
+                flash("Invalid Password.")
+                return redirect(url_for("login"))
+        else:
+            flash("User doesn't exists.")
+            return redirect(url_for("login"))
 
     return render_template("login.html")
 
