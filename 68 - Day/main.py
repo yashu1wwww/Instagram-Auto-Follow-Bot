@@ -18,6 +18,8 @@ class User(UserMixin, db.Model):
     email = db.Column(db.String(100), unique=True)
     password = db.Column(db.String(100))
     name = db.Column(db.String(1000))
+
+
 # Line below only required once, when creating DB.
 # db.create_all()
 
@@ -27,8 +29,24 @@ def home():
     return render_template("index.html")
 
 
-@app.route('/register')
+@app.route('/register', methods=["GET", "POST"])
 def register():
+    if request.method == "POST":
+        # name = request.form.get("name")
+        # email = request.form.get("email")
+        # password = request.form.get("password")
+
+        new_user = User(
+            name=request.form["name"],
+            email=request.form["email"],
+            password=request.form["password"]
+        )
+
+        db.session.add(new_user)
+        db.session.commit()
+
+        return redirect(url_for("secrets", name=new_user.name))
+
     return render_template("register.html")
 
 
@@ -49,7 +67,10 @@ def logout():
 
 @app.route('/download')
 def download():
-    pass
+    # return send_from_directory('static', filename="files/cheat_sheet.pdf")
+    return send_from_directory(
+        directory="static", path="files/cheat_sheet.pdf"
+    )
 
 
 if __name__ == "__main__":
