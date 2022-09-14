@@ -32,14 +32,13 @@ def home():
 @app.route('/register', methods=["GET", "POST"])
 def register():
     if request.method == "POST":
-        # name = request.form.get("name")
-        # email = request.form.get("email")
-        # password = request.form.get("password")
+
+        password = generate_password_hash(password=request.form["password"], method="pbkdf2:sha256", salt_length=8)
 
         new_user = User(
             name=request.form["name"],
             email=request.form["email"],
-            password=request.form["password"]
+            password=password
         )
 
         db.session.add(new_user)
@@ -67,10 +66,7 @@ def logout():
 
 @app.route('/download')
 def download():
-    # return send_from_directory('static', filename="files/cheat_sheet.pdf")
-    return send_from_directory(
-        directory="static", path="files/cheat_sheet.pdf"
-    )
+    return send_from_directory(directory="static", path="files/cheat_sheet.pdf")
 
 
 if __name__ == "__main__":
