@@ -5,11 +5,8 @@ from flask_wtf import FlaskForm
 from wtforms import StringField, SubmitField
 from wtforms.validators import DataRequired, URL
 from flask_ckeditor import CKEditor, CKEditorField
+from datetime import datetime as dt
 
-
-# # Delete this code:
-# import requests
-# posts = requests.get("https://api.npoint.io/43644ec4f0013682fc0d").json()
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = '8BYkEfBA6O6donzWlSihBXox7C0sKR6b'
@@ -39,7 +36,7 @@ class CreatePostForm(FlaskForm):
     subtitle = StringField("Subtitle", validators=[DataRequired()])
     author = StringField("Your Name", validators=[DataRequired()])
     img_url = StringField("Blog Image URL", validators=[DataRequired(), URL()])
-    body = StringField("Blog Content", validators=[DataRequired()])
+    body = CKEditorField("Blog Content", validators=[DataRequired()])
     submit = SubmitField("Submit Post")
 
 
@@ -70,6 +67,29 @@ def contact():
 @app.route("/edit-post")
 def edit_post():
     pass
+
+
+@app.route("/new-post", methods=["GET", "POST"])
+def new_post():
+    form = CreatePostForm()
+
+    if form.validate_on_submit():
+        title = form.title.data
+        subtitle = form.subtitle.data
+        author = form.author.data
+        img_url = form.img_url.data
+        body = form.body.data
+
+        x = dt(2022, 9, 14)
+        date = x.strftime("%B %d, %Y")
+
+        new_blog = BlogPost(title=title, subtitle=subtitle, author=author, img_url=img_url, body=body, date=date)
+        db.session.add(new_blog)
+        db.session.commit()
+
+        return redirect(url_for("get_all_posts"))
+
+    return render_template("make-post.html", form=form)
 
 
 if __name__ == "__main__":
