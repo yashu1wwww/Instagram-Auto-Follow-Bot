@@ -5,6 +5,7 @@ from functools import wraps
 from datetime import date
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_sqlalchemy import SQLAlchemy
+from sqlalchemy import ForeignKey
 from sqlalchemy.orm import relationship
 from flask_login import UserMixin, login_user, LoginManager, login_required, current_user, logout_user
 from forms import CreatePostForm, RegisterForm, LoginForm
@@ -38,24 +39,31 @@ def admin_only(f):
     return decorated_function
 
 
-# CONFIGURE TABLES
-class BlogPost(db.Model):
-    __tablename__ = "blog_posts"
-    id = db.Column(db.Integer, primary_key=True)
-    author = db.Column(db.String(250), nullable=False)
-    title = db.Column(db.String(250), unique=True, nullable=False)
-    subtitle = db.Column(db.String(250), nullable=False)
-    date = db.Column(db.String(250), nullable=False)
-    body = db.Column(db.Text, nullable=False)
-    img_url = db.Column(db.String(250), nullable=False)
-
-
 class User(UserMixin, db.Model):
     __tablename__ = "users"
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(250), nullable=False)
     email = db.Column(db.String(250), unique=True, nullable=False)
     password = db.Column(db.String(250), nullable=False)
+
+    posts = relationship("BlogPost", back_populates="author")
+
+
+# CONFIGURE TABLES
+class BlogPost(db.Model):
+    __tablename__ = "blog_posts"
+    id = db.Column(db.Integer, primary_key=True)
+    # author = db.Column(db.String(250), nullable=False)
+    title = db.Column(db.String(250), unique=True, nullable=False)
+    subtitle = db.Column(db.String(250), nullable=False)
+    date = db.Column(db.String(250), nullable=False)
+    body = db.Column(db.Text, nullable=False)
+    img_url = db.Column(db.String(250), nullable=False)
+
+    # Create Foreign Key, "users.id" the users refers to the tablename of User.
+    author_id = db.Column(db.Integer, db.ForeignKey("users.id"))
+    # Create reference to the User object, the "posts" refers to the posts protperty in the User class.
+    author = relationship("User", back_populates="posts")
 
 
 db.create_all()
@@ -142,7 +150,7 @@ def contact():
     return render_template("contact.html", logged_in=current_user.is_authenticated)
 
 
-@app.route("/new-post")
+@app.route("/new-post", methods=["GET", "POST"])
 @login_required
 @admin_only
 def add_new_post():
