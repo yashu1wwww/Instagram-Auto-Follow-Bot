@@ -1,0 +1,1 @@
+<h1 style="color: white; font-size: 2rem;background-color: green; padding: 1rem">( 596 ) Accessing Columns and Individual Cells in a Dataframe</h1>
