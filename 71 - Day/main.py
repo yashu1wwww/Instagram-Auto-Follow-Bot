@@ -1,5 +1,7 @@
 from flask import Flask, render_template
 import pandas as pd
+import matplotlib.pyplot as plt
+import numpy as np
 
 
 app = Flask(__name__)
@@ -19,8 +21,8 @@ def home():
 
     #   rows
     rows = []
-    # data = clean_df.head(10)
-    data = clean_df
+    data = clean_df.head(10)
+    # data = clean_df
     for i in range(len(data)):
         rows.append({
             "ID": i + 1,
@@ -32,7 +34,28 @@ def home():
             "Group": data["Group"][i]
         })
 
-    return render_template("index.html", columns=df_columns, rows=rows)
+    #   chart
+    # width=16 height=8
+    plt.figure(figsize=(16, 10))
+
+    # x and y font size
+    plt.xticks(fontsize=16)
+    plt.yticks(fontsize=16)
+
+    # x and y labels
+    plt.xlabel("Date", fontsize=14)
+    plt.ylabel("Number of Posts", fontsize=14)
+
+    # ylim
+    plt.ylim(0, 38000)
+
+    # chart
+    # for column in df_columns:
+    #     plt.plot(clean_df.index, clean_df[column])
+
+    chart = plt.plot(clean_df.index, clean_df["Starting Median Salary"])
+
+    return render_template("index.html", columns=df_columns, rows=rows, chart=chart)
 
 
 if __name__ == "__main__":
