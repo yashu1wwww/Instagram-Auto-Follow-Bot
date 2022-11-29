@@ -1,4 +1,0 @@
-<h1 style="color: white; font-size: 2rem;background-color: green; padding: 1rem">( 596 ) Accessing Columns and Individual Cells in a Dataframe</h1>
-
-
-<h1 style="color: green; background-color: yellow; width: 350px;padding: 1rem">Sort</h1>
