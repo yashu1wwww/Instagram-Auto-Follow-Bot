@@ -7,7 +7,7 @@ https://www.youtube.com/watch?v=1xH_XEZR6rg
 
 change 8,9,10,12 with username,password,targeted account username,chromedriver path....
 
-Download The Latest Version Of Chrome Driver https://chromedriver.chromium.org/ & Extract The File And Place To These Folder open cmd on that particular folder and enter lc.py or double click on lc.py or you can rename the file and run
+Download The Latest Version Of Chrome Driver https://chromedriver.chromium.org/ & Extract The File And Place To These Folder open cmd on that particular folder and enter follow.py or double click on follow.py or you can rename the file and run
 
 👉Note:-
 
