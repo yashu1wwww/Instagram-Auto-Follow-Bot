@@ -5,11 +5,11 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
 
 
-EMAIL = "dlopoelevolllll.8ennis22225"
-PASSWORD = "Yashu123@#"
-MENTOR_USERNAME = "mahi7781"
+EMAIL = "dlensense" #replace with your username
+PASSWORD = "pass123" #replace with your password 
+MENTOR_USERNAME = "mahi7781" #replace with your targeted insta account username 
 INSTAGRAM_URL = "https://www.instagram.com/"
-chrome_driver_path = r"C:\Users\Hp\Desktop\Bots\INSTAGRAM bot/chromedriver.exe"
+chrome_driver_path = r"C:\Users\Hp\Desktop\Bots\INSTAGRAM bot/chromedriver.exe" #replace with your Chromedriver path
 
 
 class InstaFollower:
