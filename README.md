@@ -5,9 +5,7 @@ Instagram Auto Follow Bot Uisng selenium with python
 
 https://www.youtube.com/watch?v=1xH_XEZR6rg
 
-change 16 line & 17 with username & password and 21 line with your targeted instagram url....
-
-#here i added upto 25 posts auto likes & comments if you want another 25 posts auto likes & comments means then copy line from 35 to 282 and paste in 283 line(open notepad ++ for no line)
+change 8,9,10,12 with username,password,targeted account username,chromedriver path....
 
 Download The Latest Version Of Chrome Driver https://chromedriver.chromium.org/ & Extract The File And Place To These Folder open cmd on that particular folder and enter lc.py or double click on lc.py or you can rename the file and run
 
