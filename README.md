@@ -5,9 +5,9 @@ Instagram Auto Follow Bot Uisng selenium with python
 
 https://www.youtube.com/watch?v=1xH_XEZR6rg
 
-change 8,9,10,12 with username,password,targeted account username,chromedriver path....
+Download the latest version of ChromeDriver from https://chromedriver.chromium.org/, extract the file and place it in the designated folder.
 
-Download The Latest Version Of Chrome Driver https://chromedriver.chromium.org/ & Extract The File And Place To These Folder open cmd on that particular folder and enter follow.py or double click on follow.py or you can rename the file and run
+Then, open the command prompt in that folder and enter the required details, such as username, password, targeted account username, and ChromeDriver path. Finally, run the script by executing follow.py or by renaming the file and running it
 
 👉Note:-
 
