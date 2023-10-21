@@ -1,10 +1,6 @@
 # Instagram-Auto-Follow-Bot
 Instagram Auto Follow Bot Uisng selenium with python
 
-👉Instagram auto follow bot
-
-https://www.youtube.com/watch?v=1xH_XEZR6rg
-
 Download the latest version of ChromeDriver from https://chromedriver.chromium.org/, extract the file and place it in the designated folder.
 
 Then, open the command prompt in that folder and enter the required details, such as username, password, targeted account username, and ChromeDriver path. Finally, run the script by executing follow.py or by renaming the file and running it
