@@ -9,7 +9,7 @@ EMAIL = "dlensense" #replace with your username
 PASSWORD = "pass123" #replace with your password 
 MENTOR_USERNAME = "mahi7781" #replace with your targeted insta account username 
 INSTAGRAM_URL = "https://www.instagram.com/"
-chrome_driver_path = r"C:\Users\Hp\Desktop\Bots\INSTAGRAM bot/chromedriver.exe" #replace with your Chromedriver path
+chrome_driver_path = r"C:\Users\Hp\Desktop\Bots\INSTAGRAM bot/chromedriver.exe" #replace with your Chromedriver path(better to create folder in that folder code and chromedriver must)
 
 
 class InstaFollower:
@@ -42,7 +42,9 @@ class InstaFollower:
         followers.click()
         sleep(7)
 
-        modal = self.driver.find_element(By.XPATH, '/html/body/div[1]/div/div/div/div[2]/div/div/div[1]/div/div[2]/div/div/div/div/div[2]/div/div/div[2]')
+        #click on followers continuesly by scrolling...
+
+        modal = self.driver.find_element(By.XPATH, '/html/body/div[6]/div[1]/div/div[2]/div/div/div/div/div[2]/div/div/div[2]/div[2]/div/div[1]/div/div/div/div[3]/div/button/div/div')
 
         # while True:
         for _ in range(2):
